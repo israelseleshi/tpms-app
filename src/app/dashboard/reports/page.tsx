@@ -9,8 +9,9 @@ export default function ReportsPage() {
   return (
     <div className="p-6 space-y-8" style={{ minHeight: '100vh' }}>
       {/* Header */}
-      <div className="apple-spacing-lg">
-        <h1 className="apple-text-2xl text-slate-900 mb-2">Reports & Analytics</h1>
+      <div className="flex flex-col gap-2">
+        <p className="apple-text-sm font-semibold uppercase tracking-wide text-slate-600">Analytics</p>
+        <h1 className="apple-text-2xl font-semibold tracking-tight text-slate-900">Reports & Analytics</h1>
         <p className="apple-text-base text-slate-600">Generate and view trademark practice reports</p>
       </div>
 

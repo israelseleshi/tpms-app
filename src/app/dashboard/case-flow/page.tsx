@@ -63,8 +63,9 @@ export default function CaseFlowPage() {
   return (
     <div className="p-6 space-y-8" style={{ minHeight: '100vh' }}>
       {/* Header */}
-      <div className="apple-spacing-lg">
-        <h1 className="apple-text-2xl text-slate-900 mb-2">Case Flow Management</h1>
+      <div className="flex flex-col gap-2">
+        <p className="apple-text-sm font-semibold uppercase tracking-wide text-slate-600">Workflow</p>
+        <h1 className="apple-text-2xl font-semibold tracking-tight text-slate-900">Case Flow Management</h1>
         <p className="apple-text-base text-slate-600">Track and manage trademark application workflows</p>
       </div>
 
