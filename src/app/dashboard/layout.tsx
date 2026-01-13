@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
-import DashboardPage from "./page";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -15,7 +14,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto p-6">
-          <DashboardPage />
+          {children}
         </main>
       </div>
     </div>
