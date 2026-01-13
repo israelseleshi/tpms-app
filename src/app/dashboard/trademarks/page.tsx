@@ -1,46 +1,88 @@
-const trademarks = [
-  { mark: "Abyssinia Bank", class: "36", jurisdiction: "ET", status: "Filing", appNo: "ET/2025/0142" },
-  { mark: "Blue Nile Coffee", class: "30", jurisdiction: "ET", status: "Office Action", appNo: "ET/2025/0098" },
-  { mark: "LumenPay", class: "42", jurisdiction: "US", status: "Publication", appNo: "US/1844229" },
-  { mark: "ZenData", class: "42", jurisdiction: "EU", status: "Registered", appNo: "EU/998122" },
-];
+"use client";
+
+import Link from "next/link";
+import { ChevronRight, Plus, Search } from "lucide-react";
+import { StatusBadge } from "@/components/ui/status-badge";
+import { PageHeader } from "@/components/shared/page-header";
+import { AnimatedWrapper } from "@/components/animations/AnimatedWrapper";
+
+import { trademarks as allTrademarks } from "@/lib/mock-data";
+import { useSearch } from "@/context/SearchContext";
 
 export default function TrademarksPage() {
-  return (
-    <div className="p-6 space-y-8" style={{ minHeight: '100vh' }}>
-      <header className="flex items-start justify-between">
-        <div>
-          <p className="apple-text-sm font-semibold uppercase tracking-wide text-slate-600">Portfolio</p>
-          <h1 className="apple-text-2xl font-semibold text-slate-900">Trademarks</h1>
-          <p className="apple-text-base text-slate-600">Mock data for exploration. Filtering and search coming soon.</p>
-        </div>
-        <button className="apple-button apple-tint-bg text-white px-6 py-3 apple-text-sm font-semibold shadow-lg">
-          Add trademark
-        </button>
-      </header>
+  const { searchQuery } = useSearch();
 
-      <div className="glass-card smooth-corners overflow-hidden">
-        <div className="grid grid-cols-5 bg-slate-50 px-4 py-3 apple-text-xs font-semibold uppercase tracking-wide text-slate-600">
-          <span>Mark</span>
-          <span>Class</span>
-          <span>Jurisdiction</span>
-          <span>Status</span>
-          <span>Application #</span>
+  const filteredTrademarks = allTrademarks.filter(
+    (item) =>
+      item.mark.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.appNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.jurisdiction.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div className="p-4 md:p-6" style={{ minHeight: '100vh' }}>
+      <AnimatedWrapper animation="fadeIn">
+        <PageHeader 
+          title="Trademarks"
+          subtitle="Mock data for exploration. Filtering and search coming soon."
+          actionButton={
+            <button className="apple-button apple-tint-bg text-white gap-2 px-6 py-3 apple-text-sm font-semibold shadow-lg">
+              <Plus className="h-4 w-4" />
+              Add trademark
+            </button>
+          }
+        />
+      </AnimatedWrapper>
+
+      <AnimatedWrapper animation="slideIn" delay={0.1}>
+        {/* Desktop View */}
+        <div className="hidden md:block glass-card smooth-corners overflow-hidden mt-4">
+          <div className="grid grid-cols-5 bg-slate-50 px-4 py-3 apple-text-xs font-semibold uppercase tracking-wide text-slate-600">
+            <span>Mark</span>
+            <span>Class</span>
+            <span>Jurisdiction</span>
+            <span>Status</span>
+            <span>Application #</span>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {filteredTrademarks.map((item) => (
+              <Link
+                key={item.appNo}
+                href={`/dashboard/trademarks/${encodeURIComponent(item.appNo)}`}
+                className="grid grid-cols-5 items-center px-4 py-3 apple-text-sm text-slate-800 hover:bg-slate-50/50 cursor-pointer"
+              >
+                <span className="font-semibold text-slate-900">{item.mark}</span>
+                <span>Class {item.class}</span>
+                <span>{item.jurisdiction}</span>
+                <StatusBadge status={item.status} />
+                <span className="text-slate-600">{item.appNo}</span>
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="divide-y divide-slate-100">
-          {trademarks.map((item) => (
-            <div key={item.appNo} className="grid grid-cols-5 items-center px-4 py-3 apple-text-sm text-slate-800">
-              <span className="font-semibold text-slate-900">{item.mark}</span>
-              <span>Class {item.class}</span>
-              <span>{item.jurisdiction}</span>
-              <span className="smooth-corners border border-slate-200 bg-slate-50 px-3 py-1 apple-text-xs font-semibold uppercase tracking-wide text-slate-800">
-                {item.status}
-              </span>
-              <span className="text-slate-600">{item.appNo}</span>
-            </div>
-          ))}
+
+        {/* Mobile View */}
+        <div className="md:hidden bg-white rounded-xl border border-slate-200/50 overflow-hidden">
+          <div className="divide-y divide-slate-200/50">
+            {filteredTrademarks.map((item) => (
+              <Link
+                key={item.appNo}
+                href={`/dashboard/trademarks/${encodeURIComponent(item.appNo)}`}
+                className="flex items-center justify-between p-4 hover:bg-slate-50/50 cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="font-semibold text-slate-900 apple-text-base">{item.mark}</span>
+                  <span className="text-slate-600 apple-text-sm">{`Class ${item.class} • ${item.jurisdiction}`}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <StatusBadge status={item.status} />
+                  <ChevronRight className="h-5 w-5 text-slate-400" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimatedWrapper>
     </div>
   );
 }

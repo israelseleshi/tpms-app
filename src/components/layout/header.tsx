@@ -4,16 +4,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
 import { 
   Bell, 
   Search, 
   User, 
   LogOut,
   Menu,
-  ChevronDown
+  ChevronDown,
+  Settings
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useSearch } from "@/context/SearchContext";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
@@ -22,8 +24,8 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick, className }: HeaderProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { searchQuery, setSearchQuery } = useSearch();
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
   const router = useRouter();
 
   const handleLogout = () => {
@@ -60,14 +62,13 @@ export function Header({ onMenuClick, className }: HeaderProps) {
 
       {/* Right side */}
       <div className="flex items-center gap-3 shrink-0">
-        <ThemeToggle />
         
         {/* Notifications */}
         <Button variant="ghost" size="sm" className="relative apple-button h-8 w-8 p-0 shrink-0">
           <Bell className="h-4 w-4" />
           <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full" style={{ backgroundColor: 'var(--apple-red)' }}></span>
         </Button>
-
+        
         {/* Profile Section */}
         <div className="relative shrink-0">
           <Button
@@ -106,15 +107,28 @@ export function Header({ onMenuClick, className }: HeaderProps) {
               </div>
               
               <div className="p-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="apple-button w-full justify-start gap-2 h-9 px-3"
-                  onClick={() => setIsProfileOpen(false)}
-                >
-                  <User className="h-4 w-4" />
-                  Profile Settings
-                </Button>
+                <Link href="/dashboard/profile">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="apple-button w-full justify-start gap-2 h-9 px-3"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <User className="h-4 w-4" />
+                    Profile
+                  </Button>
+                </Link>
+                <Link href="/dashboard/settings">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="apple-button w-full justify-start gap-2 h-9 px-3"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <Settings className="h-4 w-4" />
+                    Settings
+                  </Button>
+                </Link>
                 
                 <Button
                   variant="ghost"

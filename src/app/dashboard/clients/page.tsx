@@ -1,5 +1,8 @@
 "use client"
 
+"use client";
+
+import Link from "next/link";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,40 +10,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Building2, Mail, Phone, MapPin } from "lucide-react";
-
-const mockClients = [
-  {
-    id: 1,
-    name: "XYZ Consult",
-    contact: "John Doe",
-    email: "john@xyzconsult.com",
-    phone: "+1 (555) 123-4567",
-    country: "United States",
-    trademarks: 12,
-  },
-  {
-    id: 2,
-    name: "TechCorp International",
-    contact: "Jane Smith",
-    email: "jane@techcorp.com",
-    phone: "+1 (555) 987-6543",
-    country: "Canada",
-    trademarks: 8,
-  },
-  {
-    id: 3,
-    name: "Global Brands LLC",
-    contact: "Mike Johnson",
-    email: "mike@globalbrands.com",
-    phone: "+1 (555) 456-7890",
-    country: "United Kingdom",
-    trademarks: 15,
-  },
-];
+import { Plus, Building2, Mail, Phone, MapPin, ChevronRight, Search } from "lucide-react";
+import { PageHeader } from "@/components/shared/page-header";
+import { AnimatedWrapper } from "@/components/animations/AnimatedWrapper";
+import { mockClients } from "@/lib/mock-data";
+import { useSearch } from "@/context/SearchContext";
 
 export default function ClientsPage() {
   const [showForm, setShowForm] = useState(false);
+  const { searchQuery } = useSearch();
   const [formData, setFormData] = useState({
     clientName: "",
     contactPerson: "",
@@ -50,6 +28,13 @@ export default function ClientsPage() {
     address: "",
     notes: "",
   });
+
+    const filteredClients = mockClients.filter(
+    (client) =>
+      client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      client.contact.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      client.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,21 +53,13 @@ export default function ClientsPage() {
   };
 
   return (
-    <div className="p-6 space-y-8" style={{ minHeight: '100vh' }}>
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="apple-text-2xl font-bold text-slate-900">Clients & Owners</h1>
-          <p className="apple-text-base text-slate-600">Manage trademark owners and client relationships</p>
-        </div>
-        <Button 
-          onClick={() => setShowForm(!showForm)}
-          className="apple-button apple-tint-bg text-white gap-2 px-6 py-3"
-        >
-          <Plus className="h-4 w-4" />
-          Add Client
-        </Button>
-      </div>
+    <div className="p-4 md:p-6" style={{ minHeight: '100vh' }}>
+      <AnimatedWrapper animation="fadeIn">
+        <PageHeader 
+          title="Clients & Owners"
+          subtitle="Manage trademark owners and client relationships"
+        />
+      </AnimatedWrapper>
 
       {/* Add Client Form */}
       {showForm && (
@@ -175,43 +152,86 @@ export default function ClientsPage() {
         </Card>
       )}
 
-      {/* Client Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockClients.map((client) => (
-          <Card key={client.id} className="glass-card smooth-corners hover:shadow-lg transition-all">
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center smooth-corners" style={{ backgroundColor: 'var(--apple-blue)' }}>
-                    <Building2 className="h-5 w-5 text-white" />
+      <AnimatedWrapper animation="scaleUp" delay={0.1}>
+        {!showForm && (
+          <div className="mt-6 flex justify-end">
+            <Button 
+              onClick={() => setShowForm(true)}
+              className="apple-button apple-tint-bg text-white gap-2 px-6 py-3"
+            >
+              <Plus className="h-4 w-4" />
+              Add Client
+            </Button>
+          </div>
+        )}
+
+        <div className="mt-6 space-y-6">
+          {/* Client Cards - Desktop View */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredClients.map((client) => (
+              <Link href={`/dashboard/clients/${client.id}`} key={client.id}>
+                <Card className="glass-card smooth-corners hover:shadow-lg transition-all h-full">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center smooth-corners" style={{ backgroundColor: 'var(--apple-blue)' }}>
+                          <Building2 className="h-5 w-5 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="apple-text-lg">{client.name}</CardTitle>
+                          <p className="apple-text-base text-slate-600">{client.contact}</p>
+                        </div>
+                      </div>
+                      <Badge variant="secondary" className="smooth-corners" style={{ backgroundColor: 'var(--apple-blue)', color: 'white' }}>
+                        {client.trademarks} TM
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center gap-2 apple-text-base text-slate-600">
+                      <Mail className="h-4 w-4" />
+                      <span className="truncate">{client.email}</span>
+                    </div>
+                    <div className="flex items-center gap-2 apple-text-base text-slate-600">
+                      <Phone className="h-4 w-4" />
+                      <span>{client.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-2 apple-text-base text-slate-600">
+                      <MapPin className="h-4 w-4" />
+                      <span>{client.country}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          {/* Client List - Mobile View */}
+          <div className="md:hidden bg-white rounded-xl border border-slate-200/50 overflow-hidden">
+            <div className="divide-y divide-slate-200/50">
+              {filteredClients.map((client) => (
+                <Link href={`/dashboard/clients/${client.id}`} key={client.id} className="flex items-center justify-between p-4 hover:bg-slate-50/50 cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: 'var(--apple-blue)' }}>
+                      <Building2 className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-slate-900 apple-text-base">{client.name}</span>
+                      <span className="text-slate-600 apple-text-sm">{`${client.contact} • ${client.country}`}</span>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="apple-text-lg">{client.name}</CardTitle>
-                    <p className="apple-text-base text-slate-600">{client.contact}</p>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="smooth-corners" style={{ backgroundColor: 'var(--apple-blue)', color: 'white' }}>
+                      {client.trademarks} TM
+                    </Badge>
+                    <ChevronRight className="h-5 w-5 text-slate-400" />
                   </div>
-                </div>
-                <Badge variant="secondary" className="smooth-corners" style={{ backgroundColor: 'var(--apple-blue)', color: 'white' }}>
-                  {client.trademarks} TM
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center gap-2 apple-text-base text-slate-600">
-                <Mail className="h-4 w-4" />
-                <span className="truncate">{client.email}</span>
-              </div>
-              <div className="flex items-center gap-2 apple-text-base text-slate-600">
-                <Phone className="h-4 w-4" />
-                <span>{client.phone}</span>
-              </div>
-              <div className="flex items-center gap-2 apple-text-base text-slate-600">
-                <MapPin className="h-4 w-4" />
-                <span>{client.country}</span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </AnimatedWrapper>
     </div>
   );
 }

@@ -4,7 +4,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
 
 :root {
   /* Apple Design System Colors */
@@ -142,47 +141,6 @@ body {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-.dark {
-  /* Apple Dark Theme Colors - Pure Black Background */
-  --background: #000000;
-  --foreground: #F5F5F7;
-  --card: rgba(28, 28, 30, 0.72);
-  --card-foreground: #F5F5F7;
-  --popover: rgba(28, 28, 30, 0.72);
-  --popover-foreground: #F5F5F7;
-  --primary: var(--apple-blue);
-  --primary-foreground: #FFFFFF;
-  --secondary: rgba(44, 44, 46, 0.72);
-  --secondary-foreground: #F5F5F7;
-  --muted: rgba(44, 44, 46, 0.72);
-  --muted-foreground: #98989F;
-  --accent: rgba(44, 44, 46, 0.72);
-  --accent-foreground: #F5F5F7;
-  --destructive: var(--apple-red);
-  --border: rgba(44, 44, 46, 0.5);
-  --input: rgba(44, 44, 46, 0.5);
-  --ring: var(--apple-blue);
-  --chart-1: var(--apple-blue);
-  --chart-2: var(--apple-green);
-  --chart-3: var(--apple-orange);
-  --chart-4: var(--apple-red);
-  --chart-5: var(--apple-purple);
-  --sidebar: rgba(28, 28, 30, 0.72);
-  --sidebar-foreground: #F5F5F7;
-  --sidebar-primary: var(--apple-blue);
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: rgba(44, 44, 46, 0.72);
-  --sidebar-accent-foreground: #F5F5F7;
-  --sidebar-border: rgba(44, 44, 46, 0.5);
-  --sidebar-ring: var(--apple-blue);
-  
-  /* Dark theme glassmorphism - Pure Black */
-  --glass-bg: rgba(28, 28, 30, 0.72);
-  --glass-bg-hover: rgba(44, 44, 46, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --glass-shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
-}
 
 @layer base {
   * {
@@ -225,6 +183,13 @@ body {
   
   .apple-button:active {
     transform: scale(0.98);
+  }
+
+  .apple-button[data-state="active"] {
+    background-color: var(--apple-green);
+    color: white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
   
   .apple-text-sm {

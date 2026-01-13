@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Public_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
+import { SearchProvider } from "@/context/SearchContext";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -32,14 +32,7 @@ export default function RootLayout({
       <body
         className={cn(publicSans.variable, "bg-slate-50 text-slate-900 antialiased")}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <SearchProvider>{children}</SearchProvider>
       </body>
     </html>
   );
