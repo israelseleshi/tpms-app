@@ -8,7 +8,7 @@ import { MobileHeader } from "@/components/layout/mobile-header";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-black">
+    <div className="flex h-screen bg-slate-50">
       {/* Desktop Sidebar - Hidden on mobile */}
       <div className="hidden lg:block">
         <Sidebar />

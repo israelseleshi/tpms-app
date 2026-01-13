@@ -34,7 +34,7 @@ export default function DashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-2 lg:space-y-4" style={{ minHeight: '100vh' }}>
       <AnimatedWrapper animation="fadeIn">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <div className="flex flex-col gap-2">
             <p className="apple-text-sm font-semibold uppercase tracking-wide text-slate-600">Welcome back</p>
             <h1 className="apple-text-2xl font-semibold tracking-tight text-slate-900">Portfolio overview</h1>
@@ -46,7 +46,7 @@ export default function DashboardPage() {
       </AnimatedWrapper>
 
       <AnimatedWrapper animation="slideIn" delay={0.1}>
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <h2 className="apple-text-xl font-semibold mb-4">Key Metrics</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-3">
             <div className="flex items-center gap-3">
@@ -90,7 +90,7 @@ export default function DashboardPage() {
       </AnimatedWrapper>
 
       <AnimatedWrapper animation="scaleUp" delay={0.2}>
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <h2 className="apple-text-xl font-semibold mb-4">Critical Tasks</h2>
           <div className="space-y-2">
             <div className="flex items-center justify-between py-3 lg:py-2 border-b border-slate-100/50 mx-4 lg:mx-0 min-h-11">
@@ -122,7 +122,7 @@ export default function DashboardPage() {
       </AnimatedWrapper>
 
       <AnimatedWrapper animation="fadeIn" delay={0.3}>
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <div className="flex items-center justify-between mb-4">
             <h2 className="apple-text-xl font-semibold">Recent Filings</h2>
             <button className="apple-text-sm text-blue-600 lg:hover:text-blue-700 font-medium">

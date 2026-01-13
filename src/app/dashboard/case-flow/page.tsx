@@ -98,7 +98,7 @@ export default function CaseFlowPage() {
       </AnimatedWrapper>
 
       <AnimatedWrapper animation="slideIn" delay={0.1}>
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <h2 className="apple-text-xl font-semibold mb-4">Key Metrics</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="flex items-center gap-3">
@@ -145,7 +145,7 @@ export default function CaseFlowPage() {
       </AnimatedWrapper>
 
       <AnimatedWrapper animation="scaleUp" delay={0.2}>
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
+        <div className="bg-white rounded-2xl border-0 shadow-sm p-4 lg:p-6 lg:mx-0">
           <h2 className="apple-text-xl font-semibold mb-4">Workflow Stages</h2>
           {/* Desktop View */}
           <div className="hidden md:flex items-center justify-between p-3 bg-slate-100 rounded-lg">
