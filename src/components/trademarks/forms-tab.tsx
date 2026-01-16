@@ -135,7 +135,7 @@ export function FormsTab({ trademark }: FormsTabProps) {
     }
   };
 
-  const handleDownloadEipaForm = async () => {
+  const handleExportPdf = async () => {
     setIsGenerating(true);
 
     try {
@@ -145,19 +145,26 @@ export function FormsTab({ trademark }: FormsTabProps) {
       const pdfBytes = await fillEipaForm(formData);
       console.log('PDF generated successfully, size:', pdfBytes.length, 'bytes');
 
-      // Create a blob and download PDF
+      // encode pdf bytes to base64
       const uint8Array = new Uint8Array(pdfBytes);
+      let binary = "";
+      uint8Array.forEach(byte => { binary += String.fromCharCode(byte); });
+      const base64 = btoa(binary);
+
+      const safeName = formData.applicant_name.replace(/[^a-z0-9\-_]+/gi, "_");
+      const fileName = `${safeName || 'trademark'}_trademark.pdf`;
+
+      // Download locally
       const blob = new Blob([uint8Array], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `EIPA_Form_${trademark.appNo}.pdf`;
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-
-      toast.success('EIPA form downloaded successfully!');
+      toast.success('PDF downloaded');
     } catch (error) {
       console.error('Error generating PDF:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
@@ -620,12 +627,12 @@ export function FormsTab({ trademark }: FormsTabProps) {
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
-              onClick={handleDownloadEipaForm}
+              onClick={handleExportPdf}
               disabled={isGenerating || !formData.applicant_name}
               className="flex items-center gap-2"
             >
               <Download className="h-4 w-4" />
-              {isGenerating ? 'Generating...' : 'Download Filled Form'}
+              {isGenerating ? 'Downloading...' : 'Download PDF'}
             </Button>
 
             <Button
