@@ -1,9 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { pgPool } from "@/lib/db";
 
-interface Params { id: string }
 
-export async function GET(_: Request, { params }: { params: Params }) {
+export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
   try {
     const { rows } = await pgPool.query(
