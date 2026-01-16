@@ -2,9 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 import { pgPool } from "@/lib/db";
 
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
-  try {
+export async function GET(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
+    try {
     const { rows } = await pgPool.query(
       `select file_bytes, original_name from public.trademark_files where id = $1`,
       [id]
