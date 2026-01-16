@@ -275,7 +275,7 @@ export async function fillEipaForm(formData: FormData): Promise<number[]> {
 
     // 4. Contact Information
     fillField(['telephone', 'phone'], formData.telephone, 10);
-    fillField(['email'], formData.email, 5); // Decreased to 8pt to prevent cutoff
+    fillField(['email'], formData.email, 10); // Decreased to 8pt to prevent cutoff
     fillField(['fax'], formData.fax, 10);
     fillField(['po_box', 'po_box_no'], formData.po_box, 10);
 
