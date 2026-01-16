@@ -60,7 +60,7 @@ describe('EIPA Form Automation', () => {
     cy.get('#chk_collective').click({ force: true });
 
     // Trigger PDF generation
-    cy.contains('button', 'Download Filled Form').click();
+    cy.contains('button', 'Download PDF').click();
 
     // Expect PDF file downloaded
     const downloadName = 'EIPA_Form_ET_2025_0142.pdf';

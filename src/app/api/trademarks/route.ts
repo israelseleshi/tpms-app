@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pgPool } from "@/lib/db";
+import { getPgPool } from "@/lib/db";
 
 // GET: list all trademarks with their primary PDF file title
 export async function GET() {
   try {
+    const pgPool = getPgPool();
     const { rows } = await pgPool.query(
       `select f.id as file_id,
               t.id as trademark_id,
@@ -43,6 +44,8 @@ export async function POST(req: NextRequest) {
     }
 
     // upsert trademark
+    const pgPool = getPgPool();
+
     const { rows: upsertRows } = await pgPool.query(
       `insert into public.trademarks (mark_name, application_number)
        values ($1,$2)
@@ -54,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     // insert file
     const pdfBuffer = Buffer.from(pdfBase64, "base64");
-    const { rows: fileRows } = await pgPool.query(
+        const { rows: fileRows } = await pgPool.query(
       `insert into public.trademark_files (trademark_id, file_type, original_name, mime_type)
        values ($1,'pdf',$2,'application/pdf') returning id`,
       [trademarkId, pdfFileName]
