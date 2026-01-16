@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
   FileText, 
   Clock, 
@@ -9,26 +7,6 @@ import {
   CheckCircle
 } from "lucide-react";
 import { AnimatedWrapper } from "@/components/animations/AnimatedWrapper";
-
-const stats = [
-  { label: "Active marks", value: "142", detail: "Across ET / US / EU" },
-  { label: "Office actions", value: "8", detail: "Awaiting response" },
-  { label: "Invoices pending", value: "21", detail: "ETB 1.2M outstanding" },
-  { label: "On-time filings", value: "98.6%", detail: "Past 90 days" },
-];
-
-const tasks = [
-  { title: "Draft OA response", mark: "NOVA / ET", due: "13 Jan 2026" },
-  { title: "File renewal", mark: "LumenPay / US", due: "16 Jan 2026" },
-  { title: "Publication watch", mark: "Medessa / ET", due: "20 Jan 2026" },
-];
-
-const filings = [
-  { mark: "Abyssinia Bank", status: "Filing", jurisdiction: "ET", class: "36" },
-  { mark: "Blue Nile Coffee", status: "Office Action", jurisdiction: "ET", class: "30" },
-  { mark: "ZenData", status: "Registered", jurisdiction: "EU", class: "42" },
-  { mark: "LumenPay", status: "Publication", jurisdiction: "US", class: "35" },
-];
 
 export default function DashboardPage() {
   return (

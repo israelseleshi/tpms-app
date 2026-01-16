@@ -59,3 +59,18 @@
 - [ ] Advanced workflow automation
 - [ ] Production deployment configuration
 - [ ] Performance optimization and monitoring
+
+## Phase 6: EIPA Document Automation 📄
+- [x] Install `pdf-lib` and font dependencies.
+- [x] Implement `src/lib/pdf/mapping.ts` with exact X/Y points.
+- [x] Create Server Action `fillEipaForm` with Amharic font embedding.
+- [x] Build Apple-style 'Forms' tab in Trademark detail view.
+- [x] Add 'Download Filled Form' button with `sonner` success feedback.
+- [x] Implement intelligent PDF field detection using `pdf-parse` and pattern recognition.
+- [x] Fix Next.js client/server boundary issues for proper field detection.
+- [x] **CRITICAL FIX**: Rebuilt completely corrupted `src/lib/pdf/actions.ts` with proper pdf-lib implementation including form field filling, text overlay fallback, Amharic font support, checkbox handling, and trademark image embedding.
+- [x] **CRITICAL FIX**: Resolved issue where fields created in Master PDF Editor had `maxLength=0`, which caused `pdf-lib` to throw errors and fail to fill the fields. Added logic to override `maxLength` when it's set to 0.
+- [x] **UI IMPROVEMENT**: Increased font size to 12pt for all automated PDF form fields for better readability.
+- [x] **AESTHETIC MATCH**: Changed the default font to Times Roman to match the official, institutional serif font used in the EIPA PDF template.
+- [x] **FIELD EXPANSION**: Added support for 12+ new PDF tags (City Code, State, Zip, Wereda, House No, Contact Info, etc.) in both the UI and PDF automation logic.
+- [x] **PROPORTIONAL SIZING**: Implemented dynamic font sizing (8pt-10pt) for smaller PDF fields like Email, Nationality, and PO Box to ensure text fits perfectly within constrained spaces.

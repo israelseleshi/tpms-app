@@ -154,7 +154,7 @@ npm start
 
 ## 📋 Current Status
 
-See [progress.md](./progress.md) for detailed development tracking.
+See [progress.md](./progress.md) for detailed development tracking. For a high-level project overview, see [planning.md](./planning.md).
 
 ### Completed
 - ✅ Next.js 14 setup with TypeScript

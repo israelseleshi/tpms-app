@@ -10,6 +10,7 @@
 - Framework: Next.js 14 (App Router) using /src directory.
 - Database/Auth: Supabase (using @supabase/ssr).
 - UI Foundation: shadcn/ui (Radix) + Tailwind CSS.
+- PDF Engine: pdf-lib (Node.js).
 - Motion/Aesthetic: Cult UI (Framer Motion).
 - Validation: Zod schemas required for all data mutations.
 </tech_stack>
@@ -18,14 +19,17 @@
 - Rule: NEVER manually code or "guess" the implementation of a UI component.
 - Rule: For **shadcn/ui**, you MUST refer to the official documentation: https://ui.shadcn.com/docs. ALWAYS install via CLI: `npx shadcn@latest add [component-name]`.
 - Rule: For **Cult UI**, you MUST refer to the official documentation: https://www.cult-ui.com/docs. Copy the exact implementation code from the documentation into the corresponding file in `src/components/cult-ui/`.
-- Rule: Before writing code that uses a new component (e.g., Tabs, Dialog, Accordion), verify it is installed in `src/components/ui`. If missing, install it using the CLI immediately.
+- Rule: Before writing code that uses a new component, verify it is installed in `src/components/ui`.
 </dependency_and_installation_rules>
 
-<workflow_logic>
-- Jurisdiction Priority: Default support for Ethiopia (ET) with ETB currency and DD/MM/YYYY formatting.
-- Case Flow Automation: If CaseStatus changes, evaluate if a new Task must be created (e.g., Status: 'Office Action' -> Task: 'Draft Response').
-- Financials: Professional Service Fees must be clearly distinguished from Government Filing Fees.
-</workflow_logic>
+<pdf_automation_rules>
+- Rule: Template location: `/public/application_form.pdf`.
+- Rule: **Named Form Fields**: All input fields in the PDF template MUST be pre-defined with unique, descriptive name tags (e.g., "applicant_name", "trademark_description"). These fields should be created using a master PDF editor (e.g., Master PDF Editor, Adobe Acrobat).
+- Rule: **Amharic Support:** You MUST embed a Unicode font (e.g., Noto Sans Ethiopic) to render Ethiopic characters. Do not use standard Helvetica for Amharic fields.
+- Rule: **Image Constraining:** Use `image.scaleToFit(140, 140)` to ensure trademark images fit the 5cm x 5cm box in Section IV without distortion.
+- Rule: **Mapping Data to Fields**: Data from the application will be mapped directly to these named PDF form fields using `pdfDoc.getForm().getTextField('fieldName')` and `field.setText('value')`.
+- Rule: **Form Flattening**: After populating fields, flatten the form to prevent further editing while preserving the visual appearance.
+</pdf_automation_rules>
 
 <ui_ux_design>
 - Aesthetic: "Modern Professional Legal." Use Slate-950 for text, White/Slate-50 for backgrounds, and Indigo-600 for primary accents.
@@ -34,30 +38,16 @@
 - Loading: Use shadcn Skeletons for all data-fetching states.
 - Font: Use 'Public Sans' for all UI elements.
 - Colors: Strictly use the 3-tone palette (Midnight Indigo, Legal Blue, Stark White).
-- Constraints: NO gradients, NO heavy shadows, NO decorative glows. Focus on typography and whitespace.
+- Constraints: NO gradients, NO heavy shadows.
 </ui_ux_design>
 
-<development_protocol>
-- Data Fetching: Use Server Components (RSC) for fetching; pass data to Client Components as props.
-- Server Actions: All Supabase mutations (Insert/Update/Delete) must occur via Server Actions.
-- Error Handling: Use try/catch blocks in actions; return standardized `{ data, error }` objects.
-</development_protocol>
-
 <terminal_and_lint_rules>
-- Rule: ALWAYS monitor the terminal output after a change. If 'Module not found' or 'Lint' errors appear, prioritize fixing them before moving to new features.
+- Rule: ALWAYS monitor the terminal output after a change. If 'Module not found' or 'Lint' errors appear, fix them immediately.
 - Rule: NEVER import a component unless you have verified the file exists at that exact path.
-- Rule: Before suggesting an import from `@/components/cult-ui/` or `@/components/shared/`, ensure the component has actually been created/installed.
-- Rule: If an error occurs during `npm run dev` or `next build`, you must read the error log, identify the file and line number, and apply a fix immediately.
 - Rule: Standardize imports: Always use the `@/` alias for absolute paths from the `/src` directory.
 </terminal_and_lint_rules>
-
-<quality_assurance>
-- Rule: After every 3-4 significant changes, run `npm run lint` (if configured) to ensure code quality hasn't regressed.
-- Rule: If you create a new shared component (e.g., StatusBadge), ensure it is exported correctly before attempting to import it in a Page.
-</quality_assurance>
 
 <progress_tracking_mandate>
 - Rule: ALWAYS check progress.md at the start of every session.
 - Rule: ALWAYS update progress.md immediately after a code change is verified as successful.
-- Rule: If a task is completed, check the box [x]. If a task is partially done, add a sub-bullet explaining the current state.
-</progress_tracking_mandate>
+</progress_tracking_mandate> 

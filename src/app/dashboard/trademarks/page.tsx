@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Plus, Search } from "lucide-react";
+import { ChevronRight, Plus } from "lucide-react";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { PageHeader } from "@/components/shared/page-header";
 import { AnimatedWrapper } from "@/components/animations/AnimatedWrapper";

@@ -15,12 +15,14 @@ import {
   BarChart3,
   Workflow,
   DollarSign,
-  Menu
+  Menu,
+  Download
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Trademarks", href: "/dashboard/trademarks", icon: FileText },
+  { name: "EIPA Forms", href: "/dashboard/eipa-forms", icon: Download },
   { name: "Clients", href: "/dashboard/clients", icon: Users },
   { name: "Case Flow", href: "/dashboard/case-flow", icon: Workflow },
   { name: "Invoicing", href: "/dashboard/invoicing", icon: DollarSign },

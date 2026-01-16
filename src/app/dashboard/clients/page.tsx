@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Building2, Mail, Phone, MapPin, ChevronRight, Search } from "lucide-react";
+import { Plus, Building2, Mail, Phone, MapPin, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { AnimatedWrapper } from "@/components/animations/AnimatedWrapper";
 import { mockClients } from "@/lib/mock-data";

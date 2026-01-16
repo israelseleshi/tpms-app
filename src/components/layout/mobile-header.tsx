@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
   Bell, 
   User,
-  ChevronDown,
   Building2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
