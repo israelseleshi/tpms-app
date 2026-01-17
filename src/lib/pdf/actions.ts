@@ -71,7 +71,7 @@ export interface FormData {
   chk_service?: boolean;
   chk_services?: boolean; // alias plural
   chk_collective?: boolean;
-  
+
   // Backward-compatibility flags (will map to chk_goods / chk_service)
   is_goods_mark?: boolean;
   is_service_mark?: boolean;
@@ -92,7 +92,7 @@ async function loadPdfTemplate(): Promise<Uint8Array> {
     const pdfBuffer = await fs.readFile(templatePath);
     console.log(`Loaded template: ${templatePath}`);
     return new Uint8Array(pdfBuffer);
-  } catch (error) {
+  } catch (_error) {
     // Fallback to the original file
     try {
       const pdfBuffer = await fs.readFile(fallbackPath);
@@ -131,7 +131,7 @@ async function loadAmharicFont(): Promise<Uint8Array | null> {
       const arrayBuffer = await res.arrayBuffer();
       cachedAmharicFont = new Uint8Array(arrayBuffer);
       return cachedAmharicFont;
-    } catch (remoteErr) {
+    } catch (_remoteErr) {
       console.warn('Amharic font could not be loaded locally or remotely, Ethiopic text may fail to render.');
       cachedAmharicFont = null;
       return null;
@@ -172,7 +172,7 @@ export async function generateFieldDebugPdf(): Promise<number[]> {
           textField.setText(`[${field.getName()}]`);
           textField.setFontSize(8);
           textField.updateAppearances(timesRomanFont);
-        } catch (error) {
+        } catch (_error) {
           console.warn(`Could not set debug text for field: ${field.getName()}`);
         }
       }
@@ -206,7 +206,7 @@ export async function fillEipaForm(formData: FormData): Promise<number[]> {
     if (amharicFontBytes) {
       try {
         amharicFont = await pdfDoc.embedFont(amharicFontBytes);
-      } catch (error) {
+      } catch (_error) {
         console.warn('Failed to embed Amharic font');
       }
     }
@@ -232,7 +232,7 @@ export async function fillEipaForm(formData: FormData): Promise<number[]> {
             if (currentMaxLength === 0) {
               field.setMaxLength(1000);
             }
-          } catch (error) {
+          } catch (_error) {
             // getMaxLength might not exist on all field types, ignore
           }
 
@@ -298,7 +298,7 @@ export async function fillEipaForm(formData: FormData): Promise<number[]> {
           tf.setFontSize(5);
           tf.updateAppearances(timesRomanBoldFont);
         }
-      } catch (error) {
+      } catch (_error) {
         /* ignored */
       }
     };

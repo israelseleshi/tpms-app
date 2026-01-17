@@ -24,7 +24,6 @@ export default function TrademarksPage() {
     fetch("/api/trademarks")
       .then(async res => {
         if (!res.ok) {
-          const text = await res.text();
           throw new Error(`api-error: ${res.status}`);
         }
         return res.json();
@@ -45,7 +44,7 @@ export default function TrademarksPage() {
   return (
     <div className="p-4 md:p-6" style={{ minHeight: '100vh' }}>
       <AnimatedWrapper animation="fadeIn">
-        <PageHeader 
+        <PageHeader
           title="Trademarks"
           subtitle="Manage all trademarks in real-time from Supabase"
           actionButton={
